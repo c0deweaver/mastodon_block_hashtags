@@ -1,7 +1,5 @@
 #!/bin/bash
-
-serverURL="https://social.yourdomain.net"
-applicationUserToken=$(cat API_USER_TOKEN.secret)
+source env.sh
 
 myAccountId=$(curl -s -H "Authorization: Bearer $applicationUserToken" $serverURL/api/v1/accounts/verify_credentials | jq -r .id)
 
@@ -52,10 +50,7 @@ echo
 echo "################### START $(date) #############"
 
 get_all_followings
-block_unknown_accounts_with_posts_tagged_with nude
-block_unknown_accounts_with_posts_tagged_with nsfw
-block_unknown_accounts_with_posts_tagged_with cock
-block_unknown_accounts_with_posts_tagged_with sex
+for tag in $banned; do block_unknown_accounts_with_posts_tagged_with $tag; done
 
 rm followings.tmp
 rm header.tmp
