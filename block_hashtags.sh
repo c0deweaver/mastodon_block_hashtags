@@ -1,5 +1,5 @@
 #!/bin/bash
-source env.sh
+source env
 
 myAccountId=$(curl -s -H "Authorization: Bearer $applicationUserToken" $serverURL/api/v1/accounts/verify_credentials | jq -r .id)
 
